@@ -1,0 +1,67 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <title></title>
+</head>
+
+{% if user.is_authenticated %}
+
+	<h1 class="container p-3 my-3 bg-dark text-white text-center">Todo List
+			<div class="float-left">
+				<p class="ml-3 text-right"><a>Hi {{ user }}!</a></p>
+			</div>
+			<a class="btn btn-info ml-3" href="{% url 'todo_create' %}">Create</a>
+			<div class="float-right">
+				<p class="btn btn-link ml-3 text-right"><a href="{% url 'logout' %}">Logout</a></p>
+			</div>
+	</h1>
+
+	<ul class=".list-group-horizontal list-group-flush">
+	{% for todo in object_list %}
+
+	    <li class="list-group-item">
+
+	    	{% if not todo.done %}
+				<div class=" text-center p-2 .text-secondary" style="background-color:LightBlue;">
+	    			{{ todo.title }}
+	    			<a class="btn btn-outline-info ml-3" href="{% url 'todo_update' todo.id %}">Edit</a>
+	    			<a class="btn btn-outline-info ml-3" href="{% url 'todo_delete' todo.id %}">Delete</a>
+	    			<a class="btn btn-outline-info ml-3" href="{% url 'todo_reassign' todo.id %}">Reassign</a>
+	    		</div>
+			{% else %}
+				<div class=" text-center p-2 .text-secondary" style="background-color:LightGray;">
+	    			{{ todo.title }}
+	    			<a class="btn btn-outline-info ml-3" href="{% url 'todo_update' todo.id %}">Edit</a>
+	    			<a class="btn btn-outline-info ml-3" href="{% url 'todo_delete' todo.id %}">Delete</a>
+	    			<a class="btn btn-outline-info ml-3" href="{% url 'todo_reassign' todo.id %}">Reassign</a>
+	    		</div>
+			{% endif %}
+
+	    	<div class="row text-center" style="width:500px text-align:center">
+	 			<div class="col list-group-item">Created: {{ todo.created }}</div>
+
+	 			{% if todo.priority.name == "ALTA" %}
+	 				<div class="col list-group-item text-danger">Priority: {{ todo.priority.name }}</div>
+	    		{% elif todo.priority.name == "MEDIA" %}
+	    			<div class="col list-group-item text-warning">Priority: {{ todo.priority.name }}</div>
+	    		{% elif todo.priority.name == "BAJA" %}
+	    			<div class="col list-group-item text-primary">Priority: {{ todo.priority.name }}</div>
+	    		{% endif %}
+
+	    		<div class="col list-group-item">Updated: {{ todo.updated }}</div>
+	    	</div>
+	    </li>
+
+	{% empty %}
+	    <li class="list-group-item list-group-item-action list-group-item-light">No todo yet.</li>
+	{% endfor %}
+	</ul>
+
+{% else %}
+	<div class="text-center ml-3" style="margin:2em auto;">
+		<p>You are not logged in</p>
+	    <a href="{% url 'login' %}">Login</a>
+	</div>
+{% endif %}
