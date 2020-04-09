@@ -63,5 +63,6 @@
 	<div class="text-center ml-3" style="margin:2em auto;">
 		<p>You are not logged in</p>
 	    <a href="{% url 'login' %}">Login</a>
+	    <a href="{% url 'social:begin' 'google-oauth2' %}">Google+</a>
 	</div>
 {% endif %}

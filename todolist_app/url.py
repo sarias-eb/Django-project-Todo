@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import TodoListView, TodoListCreateView, TodoListUpdateView, TodoListDeleteView, TodoListReAssignView,TodoShowCreatedView
-from django.urls import path, include
+from .views import TodoListView, TodoListCreateView, TodoListUpdateView, TodoListDeleteView, TodoListReAssignView, TodoShowCreatedView
+from django.urls import include
 
 
 urlpatterns = [
+	path('', include('social_django.urls', namespace='social')),
 	path('accounts/', include('django.contrib.auth.urls')),
     path('', TodoListView.as_view(), name='todo_list'),
     path('create/', TodoListCreateView.as_view(), name='todo_create'),
