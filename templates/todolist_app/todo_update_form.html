@@ -1,7 +1,6 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-
 <form method="post" class="text-center ml-3" style="margin:2em auto;">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" class="btn btn-outline-info ml-3" value="Update">
