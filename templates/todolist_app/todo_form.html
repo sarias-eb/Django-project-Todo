@@ -2,7 +2,7 @@
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 <form  method="post" class="text-center ml-3" style="margin:2em auto;">{% csrf_token %}
-    {% bootstrap_form form %}
+    {{ form.as_p }}
     {% buttons %}
     <input type="submit" class="btn btn-outline-info ml-3" value="Create">
     <a class="btn btn-outline-info ml-3" href="{% url 'todo_list' %}">Cancel</a>
