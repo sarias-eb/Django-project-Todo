@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-# Create your models here.
 
 class Priority(models.Model):
     name = models.CharField(max_length=20)
@@ -13,6 +12,7 @@ class Priority(models.Model):
             self.name,
             self.orders,
         )
+
 
 class ToDo(models.Model):
     title = models.CharField(max_length=100)
