@@ -6,16 +6,17 @@ from django.views.generic.detail import DetailView
 # Create your views here.
 from .models import ToDo
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class TodoListView(ListView):
+class TodoListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return ToDo.objects.filter(asigned_user=self.request.user)
         return ToDo.objects
 
 
-class TodoShowCreatedView(DetailView):
+class TodoShowCreatedView(LoginRequiredMixin, DetailView):
     model = ToDo
 
     def get_context_data(self, **kwargs):
@@ -32,7 +33,7 @@ class TodoShowCreatedView(DetailView):
             return item
 
 
-class TodoListCreateView(CreateView):
+class TodoListCreateView(LoginRequiredMixin, CreateView):
     model = ToDo
     fields = ['title', 'description', 'asigned_user', 'done', 'created_by', 'updated_by', 'priority']
 
@@ -46,7 +47,7 @@ class TodoListCreateView(CreateView):
         return reverse('todo_view', args=(self.object.id,))
 
 
-class TodoListUpdateView(UpdateView):
+class TodoListUpdateView(LoginRequiredMixin, UpdateView):
     model = ToDo
     fields = ['title', 'description', 'asigned_user', 'done', 'created_by', 'updated_by', 'priority']
     template_name_suffix = '_update_form'
@@ -61,14 +62,14 @@ class TodoListUpdateView(UpdateView):
             return item
 
 
-class TodoListReAssignView(UpdateView):
+class TodoListReAssignView(LoginRequiredMixin, UpdateView):
     model = ToDo
     fields = ['asigned_user', 'priority']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('todo_list')
 
 
-class TodoListDeleteView(DeleteView):
+class TodoListDeleteView(LoginRequiredMixin, DeleteView):
     model = ToDo
     success_url = reverse_lazy('todo_list')
 

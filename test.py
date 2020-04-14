@@ -25,19 +25,19 @@ class LogTest(TestCase):
 
         response = c.post('/accounts/logout/')
         response = c.get('/')
-        self.assertTrue(response.context['user'].is_anonymous)
+        self.assertTrue(response.status_code , 302)
 
     def test_incorrect_login(self):
         c = Client()
         response = c.post('/accounts/login/', {'username': 'testuser', 'password': '1235678'})
         response = c.get('/')
-        self.assertTrue(response.context['user'].is_anonymous)
+        self.assertTrue(response.status_code, 302)
 
     def test_incorrect_login_by_forgetting_password(self):
         c = Client()
         response = c.post('/accounts/login/', {'username': 'testuser', 'password': ''})
         response = c.get('/')
-        self.assertTrue(response.context['user'].is_anonymous)
+        self.assertTrue(response.status_code , 302)
 
 
 class ViewTest(TestCase):
