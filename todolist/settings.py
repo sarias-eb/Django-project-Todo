@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'todo-list',
+        'NAME': 'dj_database_url',
         'USER': '',
         'PASSWORD': '',
         'PORT': '',
