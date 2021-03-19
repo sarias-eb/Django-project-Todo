@@ -18,7 +18,7 @@ django-crispy-forms==1.9.0
 django-facebook==6.0.3
 django-oauth-toolkit==1.3.2
 django-rest-framework-social-oauth2==1.1.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 factory-boy==2.12.0
 Faker==4.0.3
 gunicorn==20.0.4
